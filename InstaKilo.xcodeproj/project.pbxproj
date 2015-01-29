@@ -87,7 +87,6 @@
 				B2E7B2711A7AB3DC006FAD70 /* ViewController.m */,
 				B2E7B2731A7AB3DC006FAD70 /* Main.storyboard */,
 				B2E7B2761A7AB3DC006FAD70 /* Images.xcassets */,
-				B2E7B2781A7AB3DC006FAD70 /* LaunchScreen.xib */,
 				B2E7B2691A7AB3DC006FAD70 /* Supporting Files */,
 			);
 			path = InstaKilo;
@@ -96,6 +95,7 @@
 		B2E7B2691A7AB3DC006FAD70 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B2E7B2781A7AB3DC006FAD70 /* LaunchScreen.xib */,
 				B2E7B26A1A7AB3DC006FAD70 /* Info.plist */,
 				B2E7B26B1A7AB3DC006FAD70 /* main.m */,
 			);
