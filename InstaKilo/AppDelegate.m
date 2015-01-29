@@ -17,6 +17,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
+	
+	// Create data model
+	self.imageNames = @[
+						@"atari_arcade_angle",
+						@"atari_arcade_straight",
+						@"backpack",
+						@"chessboard",
+						@"foosball_table",
+						@"growlab_sign",
+						@"laptop_keyboard",
+						@"lighthouse_labs_sign",
+						@"lighthouse_painting",
+						@"redbull_fridge"
+						];
+	
 	return YES;
 }
 
