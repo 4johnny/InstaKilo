@@ -7,10 +7,13 @@
 //
 
 #import "AppDelegate.h"
+#import "PhotoCollectionViewController.h"
+
 
 @interface AppDelegate ()
 
 @end
+
 
 @implementation AppDelegate
 
@@ -18,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
 	
-	// Create data model
+	// Create data model, and inject into photo collection view controller.
 	self.imageNames = @[
 						@"atari_arcade_angle",
 						@"atari_arcade_straight",
@@ -31,6 +34,9 @@
 						@"lighthouse_painting",
 						@"redbull_fridge"
 						];
+	UINavigationController* navigationViewcontroller = (UINavigationController*)self.window.rootViewController;
+	PhotoCollectionViewController* photoCollectionViewcontroller = (PhotoCollectionViewController*)navigationViewcontroller.viewControllers.firstObject;
+	photoCollectionViewcontroller.imageNames = self.imageNames;
 	
 	return YES;
 }

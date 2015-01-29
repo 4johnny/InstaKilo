@@ -1,15 +1,15 @@
 //
-//  ViewController.h
+//  PhotoCollectionViewCell.m
 //  InstaKilo
 //
 //  Created by Johnny on 2015-01-29.
 //  Copyright (c) 2015 Empath Solutions. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "PhotoCollectionViewCell.h"
 
-@interface ViewController : UIViewController
+@implementation PhotoCollectionViewCell
+
 
 
 @end
-
