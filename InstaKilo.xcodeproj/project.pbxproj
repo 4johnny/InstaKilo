@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B21DDEAB1A7B598E00198A2A /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = B21DDEAA1A7B598E00198A2A /* Photo.m */; };
 		B22A89D21A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B22A89D11A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m */; };
 		B255DA171A7AC2EF0052AEB0 /* PhotoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B255DA161A7AC2EF0052AEB0 /* PhotoCollectionViewController.m */; };
+		B2C72B3B1A7B520E00D4B2CF /* PhotoCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C72B3A1A7B520E00D4B2CF /* PhotoCollectionReusableView.m */; };
 		B2E7B26C1A7AB3DC006FAD70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E7B26B1A7AB3DC006FAD70 /* main.m */; };
 		B2E7B26F1A7AB3DC006FAD70 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E7B26E1A7AB3DC006FAD70 /* AppDelegate.m */; };
 		B2E7B2751A7AB3DC006FAD70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2E7B2731A7AB3DC006FAD70 /* Main.storyboard */; };
@@ -28,10 +30,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B21DDEA91A7B598E00198A2A /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		B21DDEAA1A7B598E00198A2A /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		B22A89D01A7ABDA800B8A4B2 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		B22A89D11A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		B255DA151A7AC2EF0052AEB0 /* PhotoCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewController.h; sourceTree = "<group>"; };
 		B255DA161A7AC2EF0052AEB0 /* PhotoCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewController.m; sourceTree = "<group>"; };
+		B2C72B391A7B520E00D4B2CF /* PhotoCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionReusableView.h; sourceTree = "<group>"; };
+		B2C72B3A1A7B520E00D4B2CF /* PhotoCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionReusableView.m; sourceTree = "<group>"; };
 		B2E7B2661A7AB3DC006FAD70 /* InstaKilo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaKilo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2E7B26A1A7AB3DC006FAD70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2E7B26B1A7AB3DC006FAD70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -91,6 +97,10 @@
 				B255DA161A7AC2EF0052AEB0 /* PhotoCollectionViewController.m */,
 				B22A89D01A7ABDA800B8A4B2 /* PhotoCollectionViewCell.h */,
 				B22A89D11A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m */,
+				B2C72B391A7B520E00D4B2CF /* PhotoCollectionReusableView.h */,
+				B2C72B3A1A7B520E00D4B2CF /* PhotoCollectionReusableView.m */,
+				B21DDEA91A7B598E00198A2A /* Photo.h */,
+				B21DDEAA1A7B598E00198A2A /* Photo.m */,
 				B2E7B2691A7AB3DC006FAD70 /* Supporting Files */,
 			);
 			path = InstaKilo;
@@ -224,7 +234,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21DDEAB1A7B598E00198A2A /* Photo.m in Sources */,
 				B22A89D21A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m in Sources */,
+				B2C72B3B1A7B520E00D4B2CF /* PhotoCollectionReusableView.m in Sources */,
 				B255DA171A7AC2EF0052AEB0 /* PhotoCollectionViewController.m in Sources */,
 				B2E7B26F1A7AB3DC006FAD70 /* AppDelegate.m in Sources */,
 				B2E7B26C1A7AB3DC006FAD70 /* main.m in Sources */,

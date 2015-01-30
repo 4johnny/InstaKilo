@@ -8,35 +8,54 @@
 
 #import "AppDelegate.h"
 #import "PhotoCollectionViewController.h"
+#import "Photo.h"
+
+
+#define SUBJECT_WORK @"Work"
+#define SUBJECT_PLAY @"Play"
 
 
 @interface AppDelegate ()
+
+@property (nonatomic) NSArray* photosWork;
+@property (nonatomic) NSArray* photosPlay;
 
 @end
 
 
 @implementation AppDelegate
 
+- (void)loadModel {
+	
+	self.photosWork = @[
+						[Photo photoWithImageName:@"backpack" andSubject:SUBJECT_WORK],
+						[Photo photoWithImageName:@"growlab_sign" andSubject:SUBJECT_WORK],
+						[Photo photoWithImageName:@"laptop_keyboard" andSubject:SUBJECT_WORK],
+						[Photo photoWithImageName:@"lighthouse_labs_sign" andSubject:SUBJECT_WORK],
+						[Photo photoWithImageName:@"redbull_fridge" andSubject:SUBJECT_WORK]
+						];
+	self.photosPlay = @[
+						[Photo photoWithImageName:@"atari_arcade_angle" andSubject:SUBJECT_PLAY],
+						[Photo photoWithImageName:@"atari_arcade_straight" andSubject:SUBJECT_PLAY],
+						[Photo photoWithImageName:@"chessboard" andSubject:SUBJECT_PLAY],
+						[Photo photoWithImageName:@"foosball_table" andSubject:SUBJECT_PLAY],
+						[Photo photoWithImageName:@"lighthouse_painting" andSubject:SUBJECT_PLAY],
+						];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
 	
-	// Create data model, and inject into photo collection view controller.
-	self.imageNames = @[
-						@"atari_arcade_angle",
-						@"atari_arcade_straight",
-						@"backpack",
-						@"chessboard",
-						@"foosball_table",
-						@"growlab_sign",
-						@"laptop_keyboard",
-						@"lighthouse_labs_sign",
-						@"lighthouse_painting",
-						@"redbull_fridge"
-						];
+	// Load data model, and inject into photo collection view controller
+	
+	[self loadModel];
+	
 	UINavigationController* navigationViewcontroller = (UINavigationController*)self.window.rootViewController;
 	PhotoCollectionViewController* photoCollectionViewcontroller = (PhotoCollectionViewController*)navigationViewcontroller.viewControllers.firstObject;
-	photoCollectionViewcontroller.imageNames = self.imageNames;
+	
+	photoCollectionViewcontroller.photosWork = self.photosWork;
+	photoCollectionViewcontroller.photosPlay = self.photosPlay;
 	
 	return YES;
 }

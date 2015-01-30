@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhotoCollectionViewController : UICollectionViewController
+@interface PhotoCollectionViewController : UICollectionViewController <UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic) NSArray* imageNames;
+@property (nonatomic) NSArray* photosWork;
+@property (nonatomic) NSArray* photosPlay;
 
 @end
