@@ -28,7 +28,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="O1I-BM-XfE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JsP-Qg-BoF">
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JsP-Qg-BoF" customClass="PhotoCollectionViewFlowLayout">
                             <size key="itemSize" width="309" height="339"/>
                             <size key="headerReferenceSize" width="88" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -92,7 +92,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LVs-IU-U9a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="312"/>
+            <point key="canvasLocation" x="74" y="343"/>
         </scene>
     </scenes>
     <resources>

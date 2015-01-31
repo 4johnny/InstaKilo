@@ -9,6 +9,7 @@
 #import "PhotoCollectionViewController.h"
 #import "PhotoCollectionViewCell.h"
 #import "PhotoCollectionReusableView.h"
+#import "PhotoCollectionViewFlowLayout.h"
 
 #import "Model.h"
 #import "Section.h"
@@ -53,15 +54,15 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 	
 	// Do any additional setup after loading the view.
 	
-	UICollectionViewFlowLayout* flowLayout = (UICollectionViewFlowLayout*)self.collectionViewLayout;
+	PhotoCollectionViewFlowLayout* flowLayout = (PhotoCollectionViewFlowLayout*)self.collectionViewLayout;
 	flowLayout.headerReferenceSize = CGSizeMake(75, 25);
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
-	
-	[PhotoCollectionViewController logSubviewTree:self.view];
-}
+//- (void)viewDidAppear:(BOOL)animated {
+//	
+//	[PhotoCollectionViewController logSubviewTree:self.view];
+//}
 
 
 /*
