@@ -58,6 +58,12 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 }
 
 
+- (void)viewDidAppear:(BOOL)animated {
+	
+	[PhotoCollectionViewController logSubviewTree:self.view];
+}
+
+
 /*
 // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -170,6 +176,22 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 	
  }
  */
+
+
+#
+# pragma mark - Helpers
+#
+
+
++ (void)logSubviewTree:(UIView*)view {
+	
+	MDLog(@"%@: frame: (%.1f, %.1f, %.1f, %.1f), superview:%@", view.class, view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height, view.superview.class);
+	
+	for (UIView* subview in view.subviews) {
+		
+		[self logSubviewTree:subview];
+	}
+}
 
 
 @end
