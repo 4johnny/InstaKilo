@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "PhotoCollectionViewController.h"
+#import "Model.h"
+#import "Section.h"
 #import "Photo.h"
 
 
@@ -17,30 +19,36 @@
 
 @interface AppDelegate ()
 
-@property (nonatomic) NSArray* photosWork;
-@property (nonatomic) NSArray* photosPlay;
-
 @end
 
 
 @implementation AppDelegate
 
-- (void)loadModel {
++ (Model*)loadModel {
 	
-	self.photosWork = @[
-						[Photo photoWithImageName:@"backpack" andSubject:SUBJECT_WORK],
-						[Photo photoWithImageName:@"growlab_sign" andSubject:SUBJECT_WORK],
-						[Photo photoWithImageName:@"laptop_keyboard" andSubject:SUBJECT_WORK],
-						[Photo photoWithImageName:@"lighthouse_labs_sign" andSubject:SUBJECT_WORK],
-						[Photo photoWithImageName:@"redbull_fridge" andSubject:SUBJECT_WORK]
-						];
-	self.photosPlay = @[
-						[Photo photoWithImageName:@"atari_arcade_angle" andSubject:SUBJECT_PLAY],
-						[Photo photoWithImageName:@"atari_arcade_straight" andSubject:SUBJECT_PLAY],
-						[Photo photoWithImageName:@"chessboard" andSubject:SUBJECT_PLAY],
-						[Photo photoWithImageName:@"foosball_table" andSubject:SUBJECT_PLAY],
-						[Photo photoWithImageName:@"lighthouse_painting" andSubject:SUBJECT_PLAY],
-						];
+	NSArray* workItems =
+	@[
+	  [Photo photoWithImageName:@"backpack" andSubject:SUBJECT_WORK],
+	  [Photo photoWithImageName:@"growlab_sign" andSubject:SUBJECT_WORK],
+	  [Photo photoWithImageName:@"laptop_keyboard" andSubject:SUBJECT_WORK],
+	  [Photo photoWithImageName:@"lighthouse_labs_sign" andSubject:SUBJECT_WORK],
+	  [Photo photoWithImageName:@"redbull_fridge" andSubject:SUBJECT_WORK]
+	  ];
+	Section* workSection = [Section sectionWithItems:workItems andName:SUBJECT_WORK];
+	
+	NSArray* playItems =
+	@[
+	  [Photo photoWithImageName:@"atari_arcade_angle" andSubject:SUBJECT_PLAY],
+	  [Photo photoWithImageName:@"atari_arcade_straight" andSubject:SUBJECT_PLAY],
+	  [Photo photoWithImageName:@"chessboard" andSubject:SUBJECT_PLAY],
+	  [Photo photoWithImageName:@"foosball_table" andSubject:SUBJECT_PLAY],
+	  [Photo photoWithImageName:@"lighthouse_painting" andSubject:SUBJECT_PLAY],
+	  ];
+	Section* playSection = [Section sectionWithItems:playItems andName:SUBJECT_PLAY];
+	
+	NSArray* data = @[workSection, playSection];
+	
+	return [Model modelWithData:data];
 }
 
 
@@ -49,13 +57,12 @@
 	
 	// Load data model, and inject into photo collection view controller
 	
-	[self loadModel];
+	Model* model = [AppDelegate loadModel];
 	
 	UINavigationController* navigationViewcontroller = (UINavigationController*)self.window.rootViewController;
 	PhotoCollectionViewController* photoCollectionViewcontroller = (PhotoCollectionViewController*)navigationViewcontroller.viewControllers.firstObject;
 	
-	photoCollectionViewcontroller.photosWork = self.photosWork;
-	photoCollectionViewcontroller.photosPlay = self.photosPlay;
+	photoCollectionViewcontroller.model = model;
 	
 	return YES;
 }

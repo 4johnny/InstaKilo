@@ -9,17 +9,25 @@
 #import "PhotoCollectionViewController.h"
 #import "PhotoCollectionViewCell.h"
 #import "PhotoCollectionReusableView.h"
+
+#import "Model.h"
+#import "Section.h"
 #import "Photo.h"
 
 
-#define SUBJECT_SECTION_COUNT		2
-#define SUBJECT_SECTION_INDEX_WORK	0
-#define SUBJECT_SECTION_INDEX_PLAY	1
+#
+# pragma mark - Interface
+#
 
 
 @interface PhotoCollectionViewController ()
 
 @end
+
+
+#
+# pragma mark - Implementation
+#
 
 
 @implementation PhotoCollectionViewController
@@ -29,6 +37,11 @@ static NSString * const photoCellReuseIdentifier = @"photoCollectionViewCell";
 static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusableView";
 
 
+#
+# pragma mark UIViewController
+#
+
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
@@ -36,27 +49,22 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 	// self.clearsSelectionOnViewWillAppear = NO;
 	
 	// Register cell classes
-	//    [self.collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+	// [self.collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
 	
 	// Do any additional setup after loading the view.
-//	UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc] init];
-//	flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-//	flowLayout.headerReferenceSize = CGSizeMake(30, 20);
-//	flowLayout.footerReferenceSize = CGSizeZero;
-//	UICollectionView* collectionView = (UICollectionView*)self.view;
-//	collectionView.collectionViewLayout = flowLayout;
+	
+	UICollectionViewFlowLayout* flowLayout = (UICollectionViewFlowLayout*)self.collectionViewLayout;
+	flowLayout.headerReferenceSize = CGSizeMake(75, 25);
 }
 
 
 /*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
+// In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+// Get the new view controller using [segue destinationViewController].
+// Pass the selected object to the new view controller.
+}
+*/
 
 
 #
@@ -66,22 +74,14 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 	
-	return SUBJECT_SECTION_COUNT;
+	return self.model.data.count;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 	
-	switch (section) {
-			
-		case SUBJECT_SECTION_INDEX_WORK:
-			return self.photosWork.count;
-			
-		case SUBJECT_SECTION_INDEX_PLAY:
-			return self.photosPlay.count;
-	}
-	
-	return 0;
+	return (0 <= section && section < self.model.data.count) ?
+	((Section*)self.model.data[section]).items.count : 0;
 }
 
 
@@ -90,15 +90,11 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 	PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:photoCellReuseIdentifier forIndexPath:indexPath];
 	
 	// Configure the cell
-	switch (indexPath.section) {
-			
-		case SUBJECT_SECTION_INDEX_WORK:
-			cell.photoImageView.image = [UIImage imageNamed:((Photo*)self.photosWork[indexPath.row]).imageName];
-			break;
-			
-		case SUBJECT_SECTION_INDEX_PLAY:
-			cell.photoImageView.image = [UIImage imageNamed:((Photo*)self.photosPlay[indexPath.row]).imageName];
-			break;
+	if (0 <= indexPath.section && indexPath.section < self.model.data.count) {
+
+		Section* section = (Section*)(self.model.data[indexPath.section]);
+		Photo* photo = (Photo*)section.items[indexPath.row];
+		cell.photoImageView.image = [UIImage imageNamed:photo.imageName];
 	}
 	
 	return cell;
@@ -108,46 +104,43 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
 	
 	PhotoCollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:photoReusableReuseIdentifier forIndexPath:indexPath];
-
-	// Configure the supplementary view
-	switch (indexPath.section) {
-			
-		case SUBJECT_SECTION_INDEX_WORK:
-			reusableView.subjectLabel.text = ((Photo*)self.photosWork[indexPath.row]).subject;
-			break;
-			
-		case SUBJECT_SECTION_INDEX_PLAY:
-			reusableView.subjectLabel.text = ((Photo*)self.photosPlay[indexPath.row]).subject;
-			break;
-	}
 	
-	reusableView.subjectLabel.transform = CGAffineTransformMakeRotation(-M_PI_2);
+	// Configure the supplementary view
+	if (0 <= indexPath.section && indexPath.section < self.model.data.count) {
+		
+		Section* section = (Section*)self.model.data[indexPath.section];
+		reusableView.subjectLabel.text = section.name;
+		reusableView.subjectLabel.transform = CGAffineTransformMakeRotation(-M_PI_2);
+	}
 	
 	return reusableView;
 }
 
 
+/*
 #
-# pragma mark – UICollectionViewDelegateFlowLayout
+# pragma mark - UICollectionViewDelegateFlowLayout
 #
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-	
+
 	return CGSizeMake(75, 25);
 }
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-	
+
 	return CGSizeZero;
 }
+*/
 
 
+/*
 #
 # pragma mark <UICollectionViewDelegate>
 #
-
+*/
 
 /*
  // Uncomment this method to specify if the specified item should be highlighted during tracking
@@ -177,5 +170,6 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 	
  }
  */
+
 
 @end

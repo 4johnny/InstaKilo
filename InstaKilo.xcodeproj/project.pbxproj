@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B21DDEAB1A7B598E00198A2A /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = B21DDEAA1A7B598E00198A2A /* Photo.m */; };
 		B22A89D21A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B22A89D11A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m */; };
+		B246C0DA1A7C55C400244537 /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = B246C0D91A7C55C400244537 /* Section.m */; };
+		B246C0DD1A7C566D00244537 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = B246C0DC1A7C566D00244537 /* Model.m */; };
 		B255DA171A7AC2EF0052AEB0 /* PhotoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B255DA161A7AC2EF0052AEB0 /* PhotoCollectionViewController.m */; };
 		B2C72B3B1A7B520E00D4B2CF /* PhotoCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C72B3A1A7B520E00D4B2CF /* PhotoCollectionReusableView.m */; };
 		B2E7B26C1A7AB3DC006FAD70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E7B26B1A7AB3DC006FAD70 /* main.m */; };
@@ -34,6 +36,10 @@
 		B21DDEAA1A7B598E00198A2A /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		B22A89D01A7ABDA800B8A4B2 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		B22A89D11A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		B246C0D81A7C55C400244537 /* Section.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Section.h; sourceTree = "<group>"; };
+		B246C0D91A7C55C400244537 /* Section.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Section.m; sourceTree = "<group>"; };
+		B246C0DB1A7C566D00244537 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		B246C0DC1A7C566D00244537 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 		B255DA151A7AC2EF0052AEB0 /* PhotoCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewController.h; sourceTree = "<group>"; };
 		B255DA161A7AC2EF0052AEB0 /* PhotoCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewController.m; sourceTree = "<group>"; };
 		B2C72B391A7B520E00D4B2CF /* PhotoCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionReusableView.h; sourceTree = "<group>"; };
@@ -90,15 +96,19 @@
 		B2E7B2681A7AB3DC006FAD70 /* InstaKilo */ = {
 			isa = PBXGroup;
 			children = (
-				B2E7B2731A7AB3DC006FAD70 /* Main.storyboard */,
 				B2E7B26D1A7AB3DC006FAD70 /* AppDelegate.h */,
 				B2E7B26E1A7AB3DC006FAD70 /* AppDelegate.m */,
+				B2E7B2731A7AB3DC006FAD70 /* Main.storyboard */,
 				B255DA151A7AC2EF0052AEB0 /* PhotoCollectionViewController.h */,
 				B255DA161A7AC2EF0052AEB0 /* PhotoCollectionViewController.m */,
 				B22A89D01A7ABDA800B8A4B2 /* PhotoCollectionViewCell.h */,
 				B22A89D11A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m */,
 				B2C72B391A7B520E00D4B2CF /* PhotoCollectionReusableView.h */,
 				B2C72B3A1A7B520E00D4B2CF /* PhotoCollectionReusableView.m */,
+				B246C0DB1A7C566D00244537 /* Model.h */,
+				B246C0DC1A7C566D00244537 /* Model.m */,
+				B246C0D81A7C55C400244537 /* Section.h */,
+				B246C0D91A7C55C400244537 /* Section.m */,
 				B21DDEA91A7B598E00198A2A /* Photo.h */,
 				B21DDEAA1A7B598E00198A2A /* Photo.m */,
 				B2E7B2691A7AB3DC006FAD70 /* Supporting Files */,
@@ -237,7 +247,9 @@
 				B21DDEAB1A7B598E00198A2A /* Photo.m in Sources */,
 				B22A89D21A7ABDA800B8A4B2 /* PhotoCollectionViewCell.m in Sources */,
 				B2C72B3B1A7B520E00D4B2CF /* PhotoCollectionReusableView.m in Sources */,
+				B246C0DD1A7C566D00244537 /* Model.m in Sources */,
 				B255DA171A7AC2EF0052AEB0 /* PhotoCollectionViewController.m in Sources */,
+				B246C0DA1A7C55C400244537 /* Section.m in Sources */,
 				B2E7B26F1A7AB3DC006FAD70 /* AppDelegate.m in Sources */,
 				B2E7B26C1A7AB3DC006FAD70 /* main.m in Sources */,
 			);

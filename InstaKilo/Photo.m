@@ -32,7 +32,7 @@
 }
 
 
-+ (Photo *)photoWithImageName:(NSString*)imageName andSubject:(NSString*)subject {
++ (Photo*)photoWithImageName:(NSString*)imageName andSubject:(NSString*)subject {
 
 	return [[Photo alloc] initWithImageName:imageName andSubject:subject];
 }

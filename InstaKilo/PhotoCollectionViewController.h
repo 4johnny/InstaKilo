@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Model.h"
+
 
 @interface PhotoCollectionViewController : UICollectionViewController <UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic) NSArray* photosWork;
-@property (nonatomic) NSArray* photosPlay;
+@property (nonatomic) Model* model;
 
 @end
