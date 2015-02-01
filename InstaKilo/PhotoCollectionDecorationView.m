@@ -9,22 +9,44 @@
 #import "PhotoCollectionDecorationView.h"
 
 
+#
+# pragma mark - Constants
+#
+
+
 #define PHOTO_COLLECTION_DECORATION_VIEW_KIND @"PhotoCollectionDecorationView"
+
+#define BACKGROUND_COLOR_PATTERN_IMAGE @"floral_motif_1"
+
+
+#
+# pragma mark - Implementation
+#
 
 
 @implementation PhotoCollectionDecorationView
 
 
-- (id)initWithFrame:(CGRect)frame {
+#
+# pragma mark UIView
+#
+
+
+- (instancetype)initWithFrame:(CGRect)frame {
 	
 	self = [super initWithFrame:frame];
 	if (self) {
 		
-		self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"floral_motif_1"]];
+		self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:BACKGROUND_COLOR_PATTERN_IMAGE]];
 	}
 	
 	return self;
 }
+
+
+#
+# pragma mark Helpers
+#
 
 
 + (NSString*)kind {

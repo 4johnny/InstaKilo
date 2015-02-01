@@ -10,22 +10,19 @@
 #import "PhotoCollectionDecorationView.h"
 
 
+#
+# pragma mark - Implementation
+#
+
+
 @implementation PhotoCollectionViewFlowLayout
 
 // NOTE: If using self.collectionView, only rely on data model
 
 
-- (instancetype)init {
-	
-	self = [super init];
-	if (self) {
-		
-		[self registerClass:PhotoCollectionDecorationView.class forDecorationViewOfKind:PhotoCollectionDecorationView.kind];
-	}
-	
-	return self;
-}
-
+#
+# pragma mark UICollectionViewLayout
+#
 
 - (void)prepareLayout {
 	[super prepareLayout];
@@ -46,13 +43,28 @@
 }
 
 
+- (UICollectionViewLayoutAttributes *)decorationAttributes {
+	
+	UICollectionViewLayoutAttributes *decorationAttributes =
+	[UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:PhotoCollectionDecorationView.kind withIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+	
+	decorationAttributes.frame = CGRectMake(0.0, 0.0, self.collectionViewContentSize.width, self.collectionViewContentSize.height);
+	
+	return decorationAttributes;
+}
+
+
 - (NSArray*)layoutAttributesForElementsInRect:(CGRect)rect {
 	
-	NSMutableArray* attributesArray = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
+	NSMutableArray* allAttributes = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
 	
 	// Determine attributes for cells, supplementary views, and decoration views in rectangle
+
+	// Decorator
+	UICollectionViewLayoutAttributes *decorationAttributes = [self decorationAttributes];
+	[allAttributes addObject:decorationAttributes];
 	
-	return attributesArray;
+	return allAttributes;
 }
 
 
@@ -60,6 +72,7 @@
 
 	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForItemAtIndexPath:indexPath] mutableCopy];
 	
+	// Determine attributes for cells at index path
 
 	return attributes;
 }
@@ -69,6 +82,7 @@
 
 	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath] mutableCopy];
 	
+	// Determine attributes for supplementary views at index path
 	
 	return attributes;
 }
@@ -76,10 +90,12 @@
 
 - (UICollectionViewLayoutAttributes*)layoutAttributesForDecorationViewOfKind:(NSString*)elementKind atIndexPath:(NSIndexPath*)indexPath {
 	
-	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForDecorationViewOfKind:elementKind atIndexPath:indexPath] mutableCopy];
+//	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForDecorationViewOfKind:elementKind atIndexPath:indexPath] mutableCopy];
 	
+	// Determine attributes for decoration views at index path
+	return [self decorationAttributes];
 	
-	return attributes;
+//	return attributes;
 }
 
 

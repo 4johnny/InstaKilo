@@ -10,20 +10,11 @@
 #import "PhotoCollectionViewCell.h"
 #import "PhotoCollectionSectionReusableView.h"
 #import "PhotoCollectionViewFlowLayout.h"
+#import "PhotoCollectionDecorationView.h"
 
-#import "Model.h"
+//#import "Model.h"
 #import "Section.h"
 #import "Photo.h"
-
-
-#
-# pragma mark - Interface
-#
-
-
-@interface PhotoCollectionViewController ()
-
-@end
 
 
 #
@@ -36,6 +27,7 @@
 
 static NSString* const photoCellReuseIdentifier = @"photoCollectionViewCell";
 static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSectionReusableView";
+
 
 #
 # pragma mark UIViewController
@@ -51,18 +43,19 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 	
 	// Register cell classes
 	// [self.collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-	
+
+	PhotoCollectionViewFlowLayout* flowLayout = (PhotoCollectionViewFlowLayout*)self.collectionViewLayout;
+	[flowLayout registerClass:PhotoCollectionDecorationView.class forDecorationViewOfKind:PhotoCollectionDecorationView.kind];
+
 	// NOTE: For finer-grain control, these can be set in delegate implementations below.
-	//	PhotoCollectionViewFlowLayout* flowLayout = (PhotoCollectionViewFlowLayout*)self.collectionViewLayout;
-	
 	//	flowLayout.itemSize = CGSizeMake(120, 100);
 	//	flowLayout.minimumLineSpacing = 50;
 	//	flowLayout.minimumInteritemSpacing = 50;
 	//	flowLayout.headerReferenceSize = CGSizeMake(150, 50); // Assertion failure if footer does not exist
 	//	flowLayout.footerReferenceSize = CGSizeMake(150, 50); // Assertion failure if footer does not exist
 	
-	self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"floral_motif_2"]];
-	//self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"floral_motif_2"]];
+	//	self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"floral_motif_2"]];
+	//  self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"floral_motif_2"]];
 }
 
 
@@ -102,10 +95,11 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 
 
 - (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath {
-	
+
+	// Configure the cell
+
 	PhotoCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:photoCellReuseIdentifier forIndexPath:indexPath];
 	
-	// Configure the cell
 	Section* section = (Section*)(self.model.data[indexPath.section]);
 	Photo* photo = (Photo*)section.items[indexPath.row];
 	cell.photoImageView.image = [UIImage imageNamed:photo.imageName];
@@ -116,8 +110,9 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 
 - (UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSupplementaryElementOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
 	
-	// Configure the supplementary element
-//	if (kind isEqualToString:) {
+	// Configure the supplementary element: view or decoration
+	
+	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
 		
 		PhotoCollectionSectionReusableView* reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:photoSectionHeaderReuseIdentifier forIndexPath:indexPath];
 		
@@ -126,12 +121,16 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 		reusableView.subjectLabel.transform = CGAffineTransformMakeRotation(-M_PI_2);
 		
 		return reusableView;
-	
-//	if (kind isEqualToString:<#(NSString *)#>) {
-//		
-//	}
-//	
-//	return nil; // NOTE: We should never get here!
+	}
+
+	if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+		
+		// NOTE: If a footer is added, then dequeue the view here.
+
+		return nil;
+	}
+
+	return nil; // NOTE: We should never get here!
 }
 
 

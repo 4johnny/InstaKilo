@@ -8,7 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+
+#
+# pragma mark - Interface
+#
+
+
 @interface PhotoCollectionDecorationView : UICollectionReusableView
+
+
+#
+# pragma mark - Helpers
+#
+
 
 + (NSString *)kind;
 
