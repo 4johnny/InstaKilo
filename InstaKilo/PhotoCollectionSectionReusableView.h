@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhotoCollectionReusableView : UICollectionReusableView
+@interface PhotoCollectionSectionReusableView : UICollectionReusableView
 
 @property (weak, nonatomic) IBOutlet UILabel *subjectLabel;
 

@@ -10,8 +10,6 @@
 
 @interface PhotoCollectionViewCell : UICollectionViewCell
 
-//@property (nonatomic) NSString* subject;
-
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 
 @end

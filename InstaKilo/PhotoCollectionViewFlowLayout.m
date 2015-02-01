@@ -12,6 +12,8 @@
 
 @implementation PhotoCollectionViewFlowLayout
 
+// NOTE: If using self.collectionView, only rely on data model
+
 
 - (instancetype)init {
 	
@@ -29,13 +31,16 @@
 	[super prepareLayout];
 	
 	// Perform any initial calculations needed for layout later
+	
 }
 
 
 - (CGSize)collectionViewContentSize {
 	CGSize size = [super collectionViewContentSize];
 	
-	// Determine overall size of entire content area based on initial calculation
+	// Determine overall size of entire content area based on initial calculations
+	//	size.width *= 1.25;
+	//	size.height *= 1.25;
 	
 	return size;
 }
@@ -43,12 +48,36 @@
 
 - (NSArray*)layoutAttributesForElementsInRect:(CGRect)rect {
 	
-	NSMutableArray* attributes = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
+	NSMutableArray* attributesArray = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
 	
 	// Determine attributes for cells, supplementary views, and decoration views in rectangle
-//	[UICollectionViewLayoutAttributes
-//	 layoutAttributesForDecorationViewOfKind:PhotoCollectionDecorationView.kind
-//	 withIndexPath:key]
+	
+	return attributesArray;
+}
+
+
+- (UICollectionViewLayoutAttributes*)layoutAttributesForItemAtIndexPath:(NSIndexPath*)indexPath {
+
+	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForItemAtIndexPath:indexPath] mutableCopy];
+	
+
+	return attributes;
+}
+
+
+- (UICollectionViewLayoutAttributes*)layoutAttributesForSupplementaryViewOfKind:(NSString*)elementKind atIndexPath:(NSIndexPath*)indexPath {
+
+	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath] mutableCopy];
+	
+	
+	return attributes;
+}
+
+
+- (UICollectionViewLayoutAttributes*)layoutAttributesForDecorationViewOfKind:(NSString*)elementKind atIndexPath:(NSIndexPath*)indexPath {
+	
+	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForDecorationViewOfKind:elementKind atIndexPath:indexPath] mutableCopy];
+	
 	
 	return attributes;
 }

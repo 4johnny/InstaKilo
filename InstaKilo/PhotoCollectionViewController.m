@@ -8,7 +8,7 @@
 
 #import "PhotoCollectionViewController.h"
 #import "PhotoCollectionViewCell.h"
-#import "PhotoCollectionReusableView.h"
+#import "PhotoCollectionSectionReusableView.h"
 #import "PhotoCollectionViewFlowLayout.h"
 
 #import "Model.h"
@@ -34,9 +34,8 @@
 @implementation PhotoCollectionViewController
 
 
-static NSString * const photoCellReuseIdentifier = @"photoCollectionViewCell";
-static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusableView";
-
+static NSString* const photoCellReuseIdentifier = @"photoCollectionViewCell";
+static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSectionReusableView";
 
 #
 # pragma mark UIViewController
@@ -45,6 +44,7 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	// Do any additional setup after loading the view.
 	
 	// Uncomment the following line to preserve selection between presentations
 	// self.clearsSelectionOnViewWillAppear = NO;
@@ -52,26 +52,36 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 	// Register cell classes
 	// [self.collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
 	
-	// Do any additional setup after loading the view.
+	// NOTE: For finer-grain control, these can be set in delegate implementations below.
+	//	PhotoCollectionViewFlowLayout* flowLayout = (PhotoCollectionViewFlowLayout*)self.collectionViewLayout;
 	
-	PhotoCollectionViewFlowLayout* flowLayout = (PhotoCollectionViewFlowLayout*)self.collectionViewLayout;
-	flowLayout.headerReferenceSize = CGSizeMake(75, 25);
+	//	flowLayout.itemSize = CGSizeMake(120, 100);
+	//	flowLayout.minimumLineSpacing = 50;
+	//	flowLayout.minimumInteritemSpacing = 50;
+	//	flowLayout.headerReferenceSize = CGSizeMake(150, 50); // Assertion failure if footer does not exist
+	//	flowLayout.footerReferenceSize = CGSizeMake(150, 50); // Assertion failure if footer does not exist
+	
+	self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"floral_motif_2"]];
+	//self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"floral_motif_2"]];
 }
 
 
-//- (void)viewDidAppear:(BOOL)animated {
-//	
-//	[PhotoCollectionViewController logSubviewTree:self.view];
-//}
-
-
-/*
-// In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-// Get the new view controller using [segue destinationViewController].
-// Pass the selected object to the new view controller.
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	//	[PhotoCollectionViewController logSubviewTree:self.view];
+	
 }
-*/
+
+
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+	[super prepareForSegue:segue sender:sender];
+	
+	// In a storyboard-based application, you will often want to do a little preparation before navigation
+	// Get the new view controller using [segue destinationViewController].
+	// Pass the selected object to the new view controller.
+	
+}
 
 
 #
@@ -79,104 +89,199 @@ static NSString * const photoReusableReuseIdentifier = @"photoCollectionReusable
 #
 
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
 	
 	return self.model.data.count;
 }
 
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
 	
-	return (0 <= section && section < self.model.data.count) ?
-	((Section*)self.model.data[section]).items.count : 0;
+	return ((Section*)self.model.data[section]).items.count;
 }
 
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath {
 	
-	PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:photoCellReuseIdentifier forIndexPath:indexPath];
+	PhotoCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:photoCellReuseIdentifier forIndexPath:indexPath];
 	
 	// Configure the cell
-	if (0 <= indexPath.section && indexPath.section < self.model.data.count) {
-
-		Section* section = (Section*)(self.model.data[indexPath.section]);
-		Photo* photo = (Photo*)section.items[indexPath.row];
-		cell.photoImageView.image = [UIImage imageNamed:photo.imageName];
-	}
+	Section* section = (Section*)(self.model.data[indexPath.section]);
+	Photo* photo = (Photo*)section.items[indexPath.row];
+	cell.photoImageView.image = [UIImage imageNamed:photo.imageName];
 	
 	return cell;
 }
 
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSupplementaryElementOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
 	
-	PhotoCollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:photoReusableReuseIdentifier forIndexPath:indexPath];
-	
-	// Configure the supplementary view
-	if (0 <= indexPath.section && indexPath.section < self.model.data.count) {
+	// Configure the supplementary element
+//	if (kind isEqualToString:) {
+		
+		PhotoCollectionSectionReusableView* reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:photoSectionHeaderReuseIdentifier forIndexPath:indexPath];
 		
 		Section* section = (Section*)self.model.data[indexPath.section];
 		reusableView.subjectLabel.text = section.name;
 		reusableView.subjectLabel.transform = CGAffineTransformMakeRotation(-M_PI_2);
-	}
+		
+		return reusableView;
 	
-	return reusableView;
+//	if (kind isEqualToString:<#(NSString *)#>) {
+//		
+//	}
+//	
+//	return nil; // NOTE: We should never get here!
 }
 
 
-/*
-#
-# pragma mark - UICollectionViewDelegateFlowLayout
-#
-
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-
-	return CGSizeMake(75, 25);
-}
-
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-
-	return CGSizeZero;
-}
-*/
-
-
-/*
 #
 # pragma mark <UICollectionViewDelegate>
 #
-*/
 
-/*
- // Uncomment this method to specify if the specified item should be highlighted during tracking
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
- }
- */
 
-/*
- // Uncomment this method to specify if the specified item should be selected
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
- return YES;
- }
- */
-
-/*
- // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
- }
+- (BOOL)collectionView:(UICollectionView*)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath*)indexPath {
  
- - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
- }
- 
- - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+	// Determine if the specified item should be highlighted during tracking
 	
- }
- */
+	return YES; // Default YES
+}
+
+
+- (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+	
+	// Determine if the specified item should be selected
+	
+	return YES; // Default YES
+}
+
+
+- (BOOL)collectionView:(UICollectionView*)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath*)indexPath {
+	
+	// Determine if an action menu should be displayed for the specified item, and react to actions performed on the item
+	
+	return YES; // Default NO
+}
+
+
+- (BOOL)collectionView:(UICollectionView*)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath*)indexPath withSender:(id)sender {
+	
+	// Determine if an action menu should be displayed for the specified item, and react to actions performed on the item
+	
+	return YES; // Default NO
+}
+
+
+- (void)collectionView:(UICollectionView*)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath*)indexPath withSender:(id)sender {
+ 
+ // Determine if an action menu should be displayed for the specified item, and react to actions performed on the item
+}
+
+
+#
+# pragma mark <UICollectionViewDelegateFlowLayout>
+#
+
+- (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
+
+	Section* section = (Section*)(self.model.data[indexPath.section]);
+	Photo* photo = (Photo*)section.items[indexPath.row];
+	UIImage* image = [UIImage imageNamed:photo.imageName];
+	
+	return CGSizeMake(image.size.width * .1, image.size.height * .1);
+
+	//	switch (indexPath.section) {
+	//
+	//		case 0: {
+	//			int width = 100 + arc4random_uniform(200);
+	//			int height = width;
+	//			return CGSizeMake(width, height);
+	//		}
+	//
+	//		case 1: {
+	//			int width = 200;
+	//			int height = 200;
+	//			return CGSizeMake(width, height);
+	//		}
+	//	}
+ 
+//	return ((UICollectionViewFlowLayout*)collectionViewLayout).itemSize;
+}
+
+
+-(UIEdgeInsets)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+	
+//	switch (section) {
+//			
+//		case 0:
+//			return UIEdgeInsetsMake(10, 10, 10, 10);
+//			
+//		case 1:
+//			return UIEdgeInsetsMake(50, 50, 50, 50);
+//	}
+	
+	return ((UICollectionViewFlowLayout*)collectionViewLayout).sectionInset;
+}
+
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+	
+//	switch (section) {
+//			
+//		case 0:
+//			return 50;
+//			
+//		case 1:
+//			return 0;
+//	}
+	
+	return ((UICollectionViewFlowLayout*)collectionViewLayout).minimumLineSpacing;
+}
+
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+	
+//	switch (section) {
+//			
+//		case 0:
+//			return 100;
+//			
+//		case 1:
+//			return 0;
+//	}
+	
+	return ((UICollectionViewFlowLayout*)collectionViewLayout).minimumInteritemSpacing;
+}
+
+
+- (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+ 
+//	switch (section) {
+//			
+//		case 0:
+//			return CGSizeMake(150, 150);
+//			
+//		case 1:
+//			return CGSizeMake(70, 70);
+//	}
+	
+	return ((UICollectionViewFlowLayout*)collectionViewLayout).headerReferenceSize;
+}
+
+
+- (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+ 
+//	switch (section) {
+//			
+//		case 0:
+//			return CGSizeMake(150, 150);
+//			
+//		case 1:
+//			return CGSizeMake(70, 70);
+//	}
+	
+	return ((UICollectionViewFlowLayout*)collectionViewLayout).footerReferenceSize;
+}
 
 
 #

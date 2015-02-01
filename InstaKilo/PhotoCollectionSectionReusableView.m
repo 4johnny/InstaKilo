@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Empath Solutions. All rights reserved.
 //
 
-#import "PhotoCollectionReusableView.h"
+#import "PhotoCollectionSectionReusableView.h"
 
-@implementation PhotoCollectionReusableView
+@implementation PhotoCollectionSectionReusableView
 
 @end

@@ -20,7 +20,7 @@
 	self = [super initWithFrame:frame];
 	if (self) {
 		
-		[self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"floral_motif_1"]]];
+		self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"floral_motif_1"]];
 	}
 	
 	return self;
