@@ -16,7 +16,7 @@
 
 #define PHOTO_COLLECTION_DECORATION_VIEW_KIND @"PhotoCollectionDecorationView"
 
-#define BACKGROUND_COLOR_PATTERN_IMAGE @"floral_motif_1"
+#define BACKGROUND_COLOR_PATTERN_IMAGE @"floral_motif_2"
 
 
 #

@@ -43,26 +43,20 @@
 }
 
 
-- (UICollectionViewLayoutAttributes *)decorationAttributes {
-	
-	UICollectionViewLayoutAttributes *decorationAttributes =
-	[UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:PhotoCollectionDecorationView.kind withIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-	
-	decorationAttributes.frame = CGRectMake(0.0, 0.0, self.collectionViewContentSize.width, self.collectionViewContentSize.height);
-	
-	return decorationAttributes;
-}
-
-
 - (NSArray*)layoutAttributesForElementsInRect:(CGRect)rect {
 	
 	NSMutableArray* allAttributes = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
 	
 	// Determine attributes for cells, supplementary views, and decoration views in rectangle
 
+	// Make sure everything is in right Z order
+	for (UICollectionViewLayoutAttributes* attributes in allAttributes) {
+		
+		attributes.zIndex = 1;
+	}
+	
 	// Decorator
-	UICollectionViewLayoutAttributes *decorationAttributes = [self decorationAttributes];
-	[allAttributes addObject:decorationAttributes];
+	[allAttributes addObject:[self makeDecorationAttributes:nil]];
 	
 	return allAttributes;
 }
@@ -90,12 +84,27 @@
 
 - (UICollectionViewLayoutAttributes*)layoutAttributesForDecorationViewOfKind:(NSString*)elementKind atIndexPath:(NSIndexPath*)indexPath {
 	
-//	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForDecorationViewOfKind:elementKind atIndexPath:indexPath] mutableCopy];
+	UICollectionViewLayoutAttributes* decorationAttributes = [[super layoutAttributesForDecorationViewOfKind:elementKind atIndexPath:indexPath] mutableCopy];
+
+	return [self makeDecorationAttributes:decorationAttributes];
+}
+
+
+#
+# pragma mark Helpers
+#
+
+
+- (UICollectionViewLayoutAttributes*)makeDecorationAttributes:(UICollectionViewLayoutAttributes*)decorationAttributes {
 	
-	// Determine attributes for decoration views at index path
-	return [self decorationAttributes];
+	if (!decorationAttributes) {
+		decorationAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:PhotoCollectionDecorationView.kind withIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+	}
 	
-//	return attributes;
+	decorationAttributes.frame = CGRectMake(0.0, 0.0, self.collectionViewContentSize.width, self.collectionViewContentSize.height);
+	decorationAttributes.zIndex = 0;
+	
+	return decorationAttributes;
 }
 
 
