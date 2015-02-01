@@ -11,7 +11,7 @@
 
 @implementation Model
 
-- (instancetype)initWithData:(NSArray*)data {
+- (instancetype)initWithData:(NSDictionary*)data {
 	
 	self = [super init];
 	if (self) {
@@ -29,7 +29,7 @@
 }
 
 
-+ (Model*)modelWithData:(NSArray*)data {
++ (Model*)modelWithData:(NSDictionary*)data {
 	
 	return [[Model alloc] initWithData:data];
 }

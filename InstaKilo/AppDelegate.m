@@ -13,13 +13,17 @@
 #import "Photo.h"
 
 
-#define SUBJECT_WORK @"Work"
-#define SUBJECT_PLAY @"Play"
+#
+# pragma mark - Constants
+#
+
+#define SUBJECT_WORK	@"Work"
+#define SUBJECT_PLAY	@"Play"
 
 
-@interface AppDelegate ()
-
-@end
+#
+# pragma mark - Implementation
+#
 
 
 @implementation AppDelegate
@@ -46,7 +50,11 @@
 	  ];
 	Section* playSection = [Section sectionWithItems:playItems andName:SUBJECT_PLAY];
 	
-	NSArray* data = @[workSection, playSection];
+	NSArray* sectionsBySubject = @[workSection, playSection];
+	
+	NSDictionary* data = @{
+						   SECTION_SUBJECT : sectionsBySubject
+						   };
 	
 	return [Model modelWithData:data];
 }

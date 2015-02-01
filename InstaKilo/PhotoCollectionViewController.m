@@ -84,13 +84,13 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
 	
-	return self.model.data.count;
+	return ((NSArray*)(self.model.data[SECTION_SUBJECT])).count;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
 	
-	return ((Section*)self.model.data[section]).items.count;
+	return ((Section*)self.model.data[SECTION_SUBJECT][section]).items.count;
 }
 
 
@@ -100,7 +100,7 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 
 	PhotoCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:photoCellReuseIdentifier forIndexPath:indexPath];
 	
-	Section* section = (Section*)(self.model.data[indexPath.section]);
+	Section* section = (Section*)(self.model.data[SECTION_SUBJECT][indexPath.section]);
 	Photo* photo = (Photo*)section.items[indexPath.row];
 	cell.photoImageView.image = [UIImage imageNamed:photo.imageName];
 	
@@ -116,7 +116,7 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 		
 		PhotoCollectionSectionReusableView* reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:photoSectionHeaderReuseIdentifier forIndexPath:indexPath];
 		
-		Section* section = (Section*)self.model.data[indexPath.section];
+		Section* section = (Section*)self.model.data[SECTION_SUBJECT][indexPath.section];
 		reusableView.subjectLabel.text = section.name;
 		reusableView.subjectLabel.transform = CGAffineTransformMakeRotation(-M_PI_2);
 		
@@ -183,7 +183,7 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
 
-	Section* section = (Section*)(self.model.data[indexPath.section]);
+	Section* section = (Section*)(self.model.data[SECTION_SUBJECT][indexPath.section]);
 	Photo* photo = (Photo*)section.items[indexPath.row];
 	UIImage* image = [UIImage imageNamed:photo.imageName];
 	

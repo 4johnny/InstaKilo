@@ -8,10 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
+
+#
+# pragma mark - Constants
+#
+
+
+#define SECTION_SUBJECT		@"sectionBySubject"
+#define SECTION_LOCATION	@"sectionByLocation"
+
+
+#
+# pragma mark - Interface
+#
+
+
 @interface Model : NSObject
 
-@property (nonatomic) NSArray* data;
+@property (nonatomic) NSDictionary* data;
 
-+ (Model*)modelWithData:(NSArray*)data;
++ (Model*)modelWithData:(NSDictionary*)data;
 
 @end
