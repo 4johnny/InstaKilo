@@ -14,4 +14,6 @@
 
 @property (nonatomic) Model* model;
 
+@property (nonatomic) NSString* sectionType;
+
 @end

@@ -20,6 +20,10 @@
 #define SUBJECT_WORK	@"Work"
 #define SUBJECT_PLAY	@"Play"
 
+#define LOCATION_KITCHEN	@"Kitchen"
+#define LOCATION_DESK		@"Desk"
+#define LOCATION_DOORS		@"Doors"
+
 
 #
 # pragma mark - Implementation
@@ -28,36 +32,10 @@
 
 @implementation AppDelegate
 
-+ (Model*)loadModel {
-	
-	NSArray* workItems =
-	@[
-	  [Photo photoWithImageName:@"backpack" andSubject:SUBJECT_WORK],
-	  [Photo photoWithImageName:@"growlab_sign" andSubject:SUBJECT_WORK],
-	  [Photo photoWithImageName:@"laptop_keyboard" andSubject:SUBJECT_WORK],
-	  [Photo photoWithImageName:@"lighthouse_labs_sign" andSubject:SUBJECT_WORK],
-	  [Photo photoWithImageName:@"redbull_fridge" andSubject:SUBJECT_WORK]
-	  ];
-	Section* workSection = [Section sectionWithItems:workItems andName:SUBJECT_WORK];
-	
-	NSArray* playItems =
-	@[
-	  [Photo photoWithImageName:@"atari_arcade_angle" andSubject:SUBJECT_PLAY],
-	  [Photo photoWithImageName:@"atari_arcade_straight" andSubject:SUBJECT_PLAY],
-	  [Photo photoWithImageName:@"chessboard" andSubject:SUBJECT_PLAY],
-	  [Photo photoWithImageName:@"foosball_table" andSubject:SUBJECT_PLAY],
-	  [Photo photoWithImageName:@"lighthouse_painting" andSubject:SUBJECT_PLAY],
-	  ];
-	Section* playSection = [Section sectionWithItems:playItems andName:SUBJECT_PLAY];
-	
-	NSArray* sectionsBySubject = @[workSection, playSection];
-	
-	NSDictionary* data = @{
-						   SECTION_SUBJECT : sectionsBySubject
-						   };
-	
-	return [Model modelWithData:data];
-}
+
+#
+# pragma mark <UIApplicationDelegate>
+#
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -96,5 +74,81 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+#
+# pragma mark Helpers
+#
+
+
++ (Model*)loadModel {
+	
+	//
+	// Data
+	//
+	
+	NSArray* photos =
+    @[
+	  [Photo photoWithImageName:@"backpack" andSubject:SUBJECT_WORK andLocation:LOCATION_DESK],
+	  [Photo photoWithImageName:@"growlab_sign" andSubject:SUBJECT_WORK andLocation:LOCATION_DOORS],
+	  [Photo photoWithImageName:@"laptop_keyboard" andSubject:SUBJECT_WORK andLocation:LOCATION_DESK],
+	  [Photo photoWithImageName:@"lighthouse_labs_sign" andSubject:SUBJECT_WORK andLocation:LOCATION_DOORS],
+	  [Photo photoWithImageName:@"redbull_fridge" andSubject:SUBJECT_WORK andLocation:LOCATION_KITCHEN],
+	  [Photo photoWithImageName:@"atari_arcade_angle" andSubject:SUBJECT_PLAY andLocation:LOCATION_KITCHEN],
+	  [Photo photoWithImageName:@"atari_arcade_straight" andSubject:SUBJECT_PLAY andLocation:LOCATION_KITCHEN],
+	  [Photo photoWithImageName:@"chessboard" andSubject:SUBJECT_PLAY andLocation:LOCATION_KITCHEN],
+	  [Photo photoWithImageName:@"foosball_table" andSubject:SUBJECT_PLAY andLocation:LOCATION_KITCHEN],
+	  [Photo photoWithImageName:@"lighthouse_painting" andSubject:SUBJECT_PLAY andLocation:LOCATION_DESK]
+	  ];
+
+	
+	//
+	// Sections by Subject
+	//
+	
+	NSArray* workItems = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"subject == %@", SUBJECT_WORK]];
+	Section* workSection = [Section sectionWithItems:workItems andName:SUBJECT_WORK];
+	
+	NSArray* playItems =  [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"subject == %@", SUBJECT_PLAY]];
+	Section* playSection = [Section sectionWithItems:playItems andName:SUBJECT_PLAY];
+	
+	NSArray* sectionsBySubject = @[
+								   workSection,
+								   playSection
+								   ];
+	
+	
+	//
+	// Sections by Location
+	//
+	
+	NSArray* kitchenItems = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location == %@", LOCATION_KITCHEN]];
+	Section* kitchenSection = [Section sectionWithItems:kitchenItems andName:LOCATION_KITCHEN];
+	
+	NSArray* deskItems = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location == %@", LOCATION_DESK]];
+	Section* deskSection = [Section sectionWithItems:deskItems andName:LOCATION_DESK];
+
+	NSArray* doorItems = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location == %@", LOCATION_DOORS]];
+	Section* doorSection = [Section sectionWithItems:doorItems andName:LOCATION_DOORS];
+	
+	NSArray* sectionsByLocation = @[
+									kitchenSection,
+									deskSection,
+									doorSection
+									];
+	
+	
+	//
+	// Main data dictionary
+	//
+	
+	NSDictionary* data = @{
+						   SECTION_SUBJECT : sectionsBySubject,
+						   SECTION_LOCATION : sectionsByLocation
+						   };
+	
+	return [Model modelWithData:data];
+}
+
 
 @end

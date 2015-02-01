@@ -12,14 +12,14 @@
 @implementation Photo
 
 
-- (instancetype)initWithImageName:(NSString*)imageName andSubject:(NSString*)subject {
+- (instancetype)initWithImageName:(NSString*)imageName andSubject:(NSString*)subject andLocation:(NSString*)location {
 	
 	self = [super init];
 	if (self) {
 		
 		_imageName = imageName;
 		_subject = subject;
-		
+		_location = location;
 	}
 	
 	return self;
@@ -28,13 +28,13 @@
 
 - (instancetype)init {
 	
-	return [self initWithImageName:nil andSubject:nil];
+	return [self initWithImageName:nil andSubject:nil andLocation:nil];
 }
 
 
-+ (Photo*)photoWithImageName:(NSString*)imageName andSubject:(NSString*)subject {
++ (Photo*)photoWithImageName:(NSString*)imageName andSubject:(NSString*)subject andLocation:(NSString*)location {
 
-	return [[Photo alloc] initWithImageName:imageName andSubject:subject];
+	return [[Photo alloc] initWithImageName:imageName andSubject:subject andLocation:location];
 }
 
 

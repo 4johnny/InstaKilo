@@ -13,7 +13,8 @@
 
 @property (nonatomic) NSString* imageName;
 @property (nonatomic) NSString* subject;
+@property (nonatomic) NSString* location;
 
-+ (Photo*)photoWithImageName:(NSString*)imageName andSubject:(NSString*)subject;
++ (Photo*)photoWithImageName:(NSString*)imageName andSubject:(NSString*)subject andLocation:(NSString*)location;
 
 @end
