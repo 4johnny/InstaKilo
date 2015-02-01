@@ -16,4 +16,6 @@
 
 @property (nonatomic) NSString* sectionType;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *sectionTypeSegmentedControl;
+
 @end

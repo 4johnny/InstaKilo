@@ -24,6 +24,8 @@
 
 #define IMAGE_SCALING_FACTOR 0.15
 
+#define INIT_SECTION_TYPE SECTION_SUBJECT
+
 
 #
 # pragma mark - Implementation
@@ -65,7 +67,7 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 	self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"floral_motif_2"]];
 	//  self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"floral_motif_2"]];
 	
-	self.sectionType = SECTION_LOCATION;
+	self.sectionType = INIT_SECTION_TYPE;
 }
 
 
@@ -290,6 +292,28 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 //	}
 	
 	return ((UICollectionViewFlowLayout*)collectionViewLayout).footerReferenceSize;
+}
+
+
+#
+# pragma mark - Action Handlers
+#
+
+
+- (IBAction)sectionTypeChanged {
+	
+	switch (self.sectionTypeSegmentedControl.selectedSegmentIndex) {
+			
+		case 0:
+			self.sectionType = SECTION_SUBJECT;
+			break;
+
+		case 1:
+			self.sectionType = SECTION_LOCATION;
+			break;
+	}
+
+	[self.collectionView reloadData];
 }
 
 

@@ -88,7 +88,24 @@
                             <outlet property="delegate" destination="ik1-Li-D7g" id="dWf-FB-TkA"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="InstaKilo" id="cAL-E0-sgQ"/>
+                    <navigationItem key="navigationItem" title="InstaKilo" id="cAL-E0-sgQ">
+                        <barButtonItem key="leftBarButtonItem" title="Section Type" id="KBb-aq-9qZ">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="bGK-0i-0vY">
+                                <rect key="frame" x="-61" y="-14" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Subject"/>
+                                    <segment title="Location"/>
+                                </segments>
+                                <connections>
+                                    <action selector="sectionTypeChanged" destination="ik1-Li-D7g" eventType="valueChanged" id="89O-Sf-XCi"/>
+                                </connections>
+                            </segmentedControl>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="sectionTypeSegmentedControl" destination="bGK-0i-0vY" id="uvF-Aq-qFb"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LVs-IU-U9a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
