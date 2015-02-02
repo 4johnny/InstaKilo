@@ -13,7 +13,7 @@
 #import "PhotoCollectionDecorationView.h"
 
 //#import "Model.h"
-#import "Section.h"
+#import "PhotosSection.h"
 #import "Photo.h"
 
 
@@ -23,8 +23,6 @@
 
 
 #define IMAGE_SCALING_FACTOR 0.15
-
-#define INIT_SECTION_TYPE SECTION_SUBJECT
 
 
 #
@@ -66,8 +64,6 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 	
 	self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"floral_motif_2"]];
 	//  self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"floral_motif_2"]];
-	
-	self.sectionType = INIT_SECTION_TYPE;
 }
 
 
@@ -96,13 +92,13 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
 	
-	return ((NSArray*)(self.model.data[self.sectionType])).count;
+	return self.photosModel.sections.count;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
 	
-	return ((Section*)self.model.data[self.sectionType][section]).items.count;
+	return ((PhotosSection*)self.photosModel.sections[section]).photos.count;
 }
 
 
@@ -112,8 +108,8 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 
 	PhotoCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:photoCellReuseIdentifier forIndexPath:indexPath];
 	
-	Section* section = (Section*)(self.model.data[self.sectionType][indexPath.section]);
-	Photo* photo = (Photo*)section.items[indexPath.row];
+	PhotosSection* photosSection = (PhotosSection*)(self.photosModel.sections[indexPath.section]);
+	Photo* photo = (Photo*)photosSection.photos[indexPath.row];
 	cell.photoImageView.image = [UIImage imageNamed:photo.imageName];
 	
 	return cell;
@@ -128,8 +124,8 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 		
 		PhotoCollectionSectionReusableView* reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:photoSectionHeaderReuseIdentifier forIndexPath:indexPath];
 		
-		Section* section = (Section*)self.model.data[self.sectionType][indexPath.section];
-		reusableView.subjectLabel.text = section.name;
+		PhotosSection* photosSection = (PhotosSection*)(self.photosModel.sections[indexPath.section]);
+		reusableView.subjectLabel.text = photosSection.name;
 		reusableView.subjectLabel.transform = CGAffineTransformMakeRotation(-M_PI_2);
 		
 		return reusableView;
@@ -195,8 +191,8 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
 
-	Section* section = (Section*)(self.model.data[self.sectionType][indexPath.section]);
-	Photo* photo = (Photo*)section.items[indexPath.row];
+	PhotosSection* photosSection = (PhotosSection*)(self.photosModel.sections[indexPath.section]);
+	Photo* photo = (Photo*)photosSection.photos[indexPath.row];
 	UIImage* image = [UIImage imageNamed:photo.imageName];
 	
 	return CGSizeMake(image.size.width * IMAGE_SCALING_FACTOR, image.size.height * IMAGE_SCALING_FACTOR);
@@ -302,17 +298,7 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 
 - (IBAction)sectionTypeChanged {
 	
-	switch (self.sectionTypeSegmentedControl.selectedSegmentIndex) {
-			
-		case 0:
-			self.sectionType = SECTION_SUBJECT;
-			break;
-
-		case 1:
-			self.sectionType = SECTION_LOCATION;
-			break;
-	}
-
+	self.photosModel.sectionType = self.sectionTypeSegmentedControl.selectedSegmentIndex;
 	[self.collectionView reloadData];
 }
 
@@ -321,15 +307,18 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 	
 	if (self.photosTapGestureRecognizer.state == UIGestureRecognizerStateRecognized) {
 		
-		CGPoint tapLocation = [self.photosTapGestureRecognizer locationInView:self.view];
+		CGPoint tapLocation = [self.photosTapGestureRecognizer locationInView:self.collectionView];
 		MDLog(@"Double tap: (%.2f,%.2f)", tapLocation.x, tapLocation.y);
 		
-		NSIndexPath* indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];
+		NSIndexPath* indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];		
 		if (indexPath) {
-			
-			Section* section = (Section*)(self.model.data[self.sectionType][indexPath.section]);
-			[section.items removeObject:section.items[indexPath.row]];
+
+			PhotosSection* photosSection = (PhotosSection*)(self.photosModel.sections[indexPath.section]);
+			Photo* photo = (Photo*)photosSection.photos[indexPath.row];
+			[photosSection.photos removeObject:photo];
+
 			[self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+			[self.collectionViewLayout invalidateLayout];
 		}
 	}
 }

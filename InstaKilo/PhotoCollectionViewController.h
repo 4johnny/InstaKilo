@@ -7,17 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Model.h"
+#import "PhotosModel.h"
 
 
 @interface PhotoCollectionViewController : UICollectionViewController <UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic) Model* model;
-
-@property (nonatomic) NSString* sectionType;
+@property (nonatomic) PhotosModel* photosModel;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sectionTypeSegmentedControl;
-
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *photosTapGestureRecognizer;
 
 @end

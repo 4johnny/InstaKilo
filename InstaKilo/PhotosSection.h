@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Section : NSObject
+@interface PhotosSection : NSObject
 
-@property (nonatomic) NSMutableArray* items;
+@property (nonatomic) NSMutableArray* photos;
 @property (nonatomic) NSString* name;
 
-+ (Section*)sectionWithItems:(NSMutableArray*)items andName:(NSString*)name;
++ (PhotosSection*)sectionWithPhotos:(NSMutableArray*)photos andName:(NSString*)name;
 
 @end
