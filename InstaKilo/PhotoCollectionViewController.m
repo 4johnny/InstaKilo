@@ -22,7 +22,7 @@
 #
 
 
-#define IMAGE_SCALING_FACTOR 0.15
+#define IMAGE_SCALING_FACTOR 0.1
 
 
 #
@@ -308,7 +308,7 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 	if (self.photosTapGestureRecognizer.state == UIGestureRecognizerStateRecognized) {
 		
 		CGPoint tapLocation = [self.photosTapGestureRecognizer locationInView:self.collectionView];
-		MDLog(@"Double tap: (%.2f,%.2f)", tapLocation.x, tapLocation.y);
+		// MDLog(@"Double tap: (%.2f,%.2f)", tapLocation.x, tapLocation.y);
 		
 		NSIndexPath* indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];		
 		if (indexPath) {
