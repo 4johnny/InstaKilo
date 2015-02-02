@@ -11,6 +11,23 @@
 
 
 #
+# pragma mark - Constants
+#
+
+
+#define CENTER_OFFSET_BOUND		20
+#define ROTATION_ANGLE_BOUND	5 // degrees
+
+
+#
+# pragma mark - Macros
+#
+
+
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
+
+
+#
 # pragma mark - Interface
 #
 
@@ -61,10 +78,13 @@
 	
 	// Determine attributes for cells, supplementary views, and decoration views in rectangle
 
-	// Make sure everything is in right Z order
 	for (UICollectionViewLayoutAttributes* attributes in allAttributes) {
 		
+		// All elements initially at Z level 1
 		attributes.zIndex = 1;
+		
+		// Cells
+		[PhotoCollectionViewFlowLayout tweakCellAttributes:attributes];
 	}
 	
 	// Decorator
@@ -79,6 +99,7 @@
 	UICollectionViewLayoutAttributes* attributes = [super layoutAttributesForItemAtIndexPath:indexPath];
 	
 	// Determine attributes for cells at index path
+	[PhotoCollectionViewFlowLayout tweakCellAttributes:attributes];
 
 	return attributes;
 }
@@ -161,6 +182,22 @@
 #
 # pragma mark Helpers
 #
+
+
++ (void)tweakCellAttributes:(UICollectionViewLayoutAttributes*)cellAttributes {
+
+	if (cellAttributes.representedElementCategory != UICollectionElementCategoryCell) return;
+
+	// Offset center by bounded random amount
+	double centerXOffset = arc4random_uniform(CENTER_OFFSET_BOUND + 1) - (CENTER_OFFSET_BOUND / 2.0);
+	double centerYOffset = arc4random_uniform(CENTER_OFFSET_BOUND + 1) - (CENTER_OFFSET_BOUND / 2.0);
+	cellAttributes.center = CGPointMake(cellAttributes.center.x + centerXOffset,
+									cellAttributes.center.y + centerYOffset);
+	
+	// Rotate by bounded random angle
+	double rotationAngle = arc4random_uniform(ROTATION_ANGLE_BOUND + 1) - (ROTATION_ANGLE_BOUND / 2.0);
+	cellAttributes.transform = CGAffineTransformMakeRotation(RADIANS(rotationAngle));
+}
 
 
 - (UICollectionViewLayoutAttributes*)makeDecorationAttributes:(UICollectionViewLayoutAttributes*)decorationAttributes {
