@@ -11,9 +11,9 @@
 
 @interface Section : NSObject
 
-@property (nonatomic) NSArray* items;
+@property (nonatomic) NSMutableArray* items;
 @property (nonatomic) NSString* name;
 
-+ (Section*)sectionWithItems:(NSArray*)items andName:(NSString*)name;
++ (Section*)sectionWithItems:(NSMutableArray*)items andName:(NSString*)name;
 
 @end

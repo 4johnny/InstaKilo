@@ -18,4 +18,6 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sectionTypeSegmentedControl;
 
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *photosTapGestureRecognizer;
+
 @end

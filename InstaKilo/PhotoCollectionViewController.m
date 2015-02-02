@@ -317,6 +317,24 @@ static NSString* const photoSectionHeaderReuseIdentifier = @"photoCollectionSect
 }
 
 
+- (IBAction)photosTapped:(UITapGestureRecognizer*)sender {
+	
+	if (self.photosTapGestureRecognizer.state == UIGestureRecognizerStateRecognized) {
+		
+		CGPoint tapLocation = [self.photosTapGestureRecognizer locationInView:self.view];
+		MDLog(@"Double tap: (%.2f,%.2f)", tapLocation.x, tapLocation.y);
+		
+		NSIndexPath* indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];
+		if (indexPath) {
+			
+			Section* section = (Section*)(self.model.data[self.sectionType][indexPath.section]);
+			[section.items removeObject:section.items[indexPath.row]];
+			[self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+		}
+	}
+}
+
+
 #
 # pragma mark - Helpers
 #

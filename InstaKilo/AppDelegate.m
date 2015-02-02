@@ -106,10 +106,10 @@
 	// Sections by Subject
 	//
 	
-	NSArray* workItems = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"subject == %@", SUBJECT_WORK]];
+	NSMutableArray* workItems = [NSMutableArray arrayWithArray:[photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"subject == %@", SUBJECT_WORK]]];
 	Section* workSection = [Section sectionWithItems:workItems andName:SUBJECT_WORK];
 	
-	NSArray* playItems =  [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"subject == %@", SUBJECT_PLAY]];
+	NSMutableArray* playItems = [NSMutableArray arrayWithArray:[photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"subject == %@", SUBJECT_PLAY]]];
 	Section* playSection = [Section sectionWithItems:playItems andName:SUBJECT_PLAY];
 	
 	NSArray* sectionsBySubject = @[
@@ -117,18 +117,18 @@
 								   playSection
 								   ];
 	
-	
+
 	//
 	// Sections by Location
 	//
 	
-	NSArray* kitchenItems = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location == %@", LOCATION_KITCHEN]];
+	NSMutableArray* kitchenItems = [NSMutableArray arrayWithArray:[photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location == %@", LOCATION_KITCHEN]]];
 	Section* kitchenSection = [Section sectionWithItems:kitchenItems andName:LOCATION_KITCHEN];
 	
-	NSArray* deskItems = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location == %@", LOCATION_DESK]];
+	NSMutableArray* deskItems = [NSMutableArray arrayWithArray:[photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location == %@", LOCATION_DESK]]];
 	Section* deskSection = [Section sectionWithItems:deskItems andName:LOCATION_DESK];
 
-	NSArray* doorItems = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location == %@", LOCATION_DOORS]];
+	NSMutableArray* doorItems = [NSMutableArray arrayWithArray:[photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location == %@", LOCATION_DOORS]]];
 	Section* doorSection = [Section sectionWithItems:doorItems andName:LOCATION_DOORS];
 	
 	NSArray* sectionsByLocation = @[

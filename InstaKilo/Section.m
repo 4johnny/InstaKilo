@@ -12,7 +12,7 @@
 @implementation Section
 
 
-- (instancetype)initWithItems:(NSArray*)items andName:(NSString*)name {
+- (instancetype)initWithItems:(NSMutableArray*)items andName:(NSString*)name {
 	
 	self = [super init];
 	if (self) {
@@ -30,7 +30,7 @@
 }
 
 
-+ (Section*)sectionWithItems:(NSArray*)items andName:(NSString*)name {
++ (Section*)sectionWithItems:(NSMutableArray*)items andName:(NSString*)name {
 	
 	return [[Section alloc] initWithItems:items andName:name];
 }

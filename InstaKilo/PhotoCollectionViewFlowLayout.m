@@ -64,7 +64,7 @@
 
 - (UICollectionViewLayoutAttributes*)layoutAttributesForItemAtIndexPath:(NSIndexPath*)indexPath {
 
-	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForItemAtIndexPath:indexPath] mutableCopy];
+	UICollectionViewLayoutAttributes* attributes = [super layoutAttributesForItemAtIndexPath:indexPath];
 	
 	// Determine attributes for cells at index path
 
@@ -74,7 +74,7 @@
 
 - (UICollectionViewLayoutAttributes*)layoutAttributesForSupplementaryViewOfKind:(NSString*)elementKind atIndexPath:(NSIndexPath*)indexPath {
 
-	UICollectionViewLayoutAttributes* attributes = [[super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath] mutableCopy];
+	UICollectionViewLayoutAttributes* attributes = [super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath];
 	
 	// Determine attributes for supplementary views at index path
 	
@@ -84,8 +84,10 @@
 
 - (UICollectionViewLayoutAttributes*)layoutAttributesForDecorationViewOfKind:(NSString*)elementKind atIndexPath:(NSIndexPath*)indexPath {
 	
-	UICollectionViewLayoutAttributes* decorationAttributes = [[super layoutAttributesForDecorationViewOfKind:elementKind atIndexPath:indexPath] mutableCopy];
+	UICollectionViewLayoutAttributes* decorationAttributes = [super layoutAttributesForDecorationViewOfKind:elementKind atIndexPath:indexPath];
 
+	// Determine attributes for decoration views at index path
+	
 	return [self makeDecorationAttributes:decorationAttributes];
 }
 
